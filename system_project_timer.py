@@ -29,18 +29,15 @@
  
 bl_info = {
     "name": "Project Timer",
-    "author": "Martin Zielinski",
-    "version": (1, 4),
-    "blender": (2, 77, 0),
+    "author": "Martin Zielinski, waai",
+    "version": (1, 5),
+    "blender": (2, 80, 0),
     "location": "Info",
     "description": "Shows time spent on project",
     "warning": "",
     "wiki_url": "",
     "tracker_url": "",
     "category": "System"}
-
-# Is this script helpful? Please donate
-# BTC 19pXNYUaktXE2MXK37gVEZkrVjL3TwZhF
 
 import bpy
 import time
@@ -70,23 +67,14 @@ bpy.types.Scene.projectTime = bpy.props.IntProperty(
             description='All time spent on project',
             default = 0)
 
-class INFO_HT_ProjectTimer(bpy.types.Header):
-    bl_label = "Project Timer"
-    bl_space_type = "INFO"
-    #bl_region_type = "TOOLS"
-    
-    @classmethod
-    def poll(cls, context):
-        return True
-    
-    def draw(self, context):
-        projectTimerUpdate(context.scene)
+def draw_timer(self, context):
+    projectTimerUpdate(context.scene)
             
-        layout = self.layout
-        seconds = bpy.projectTime
-        m, s = divmod(seconds, 60)
-        h, m = divmod(m, 60)
-        layout.label(text="Project time: " + str(h)+':'+format(m, '02d')+':'+format(s, '02d'))
+    layout = self.layout
+    seconds = bpy.projectTime
+    m, s = divmod(seconds, 60)
+    h, m = divmod(m, 60)
+    layout.label(text="Project Time: " + str(h)+':'+format(m, '02d')+':'+format(s, '02d'))
 
 def projectTimerUpdate(scene):
     if not hasattr(bpy, 'projectTimestamp'): #first open
@@ -116,7 +104,7 @@ def projectTimerLoad(scene):
 def register():
     bpy.app.handlers.load_post.append(projectTimerLoad)
     bpy.app.handlers.save_pre.append(projectTimerSave)
-    bpy.utils.register_class(INFO_HT_ProjectTimer)
+    bpy.types.STATUSBAR_HT_header.append(draw_timer)
     bpy.utils.register_class(ProjectTimerReset)
     bpy.utils.register_class(ProjectTimerPreferences)
 
@@ -124,7 +112,7 @@ def register():
 def unregister():
     bpy.app.handlers.load_post.remove(projectTimerLoad)
     bpy.app.handlers.save_pre.remove(projectTimerSave)
-    bpy.utils.unregister_class(INFO_HT_ProjectTimer)
+    bpy.types.STATUSBAR_HT_header.remove(draw_timer)
     bpy.utils.unregister_class(ProjectTimerReset)
     bpy.utils.unregister_class(ProjectTimerPreferences)
     

@@ -26,19 +26,6 @@
  #
  #  ***** END GPL LICENSE BLOCK *****
 
- 
-bl_info = {
-    "name": "Project Timer",
-    "author": "Martin Zielinski",
-    "version": (1, 5),
-    "blender": (2, 80, 0),
-    "location": "Info",
-    "description": "Shows time spent on project",
-    "warning": "",
-    "wiki_url": "",
-    "tracker_url": "",
-    "category": "System"}
-
 import bpy
 import time
 from bpy.app.handlers import persistent 

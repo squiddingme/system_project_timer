@@ -29,7 +29,7 @@
  
 bl_info = {
     "name": "Project Timer",
-    "author": "Martin Zielinski, waai",
+    "author": "Martin Zielinski",
     "version": (1, 5),
     "blender": (2, 80, 0),
     "location": "Info",

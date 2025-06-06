@@ -78,7 +78,7 @@ def projectTimerUpdate(scene):
 @persistent 
 def projectTimerSave(scene):
     projectTimerUpdate(scene)
-    bpy.context.scene.projectTime = bpy.projectTime
+    bpy.context.scene.projectTime = bpy.projectTime if scene else 0
     print('Project Time saved', bpy.projectTime)
 
 @persistent    

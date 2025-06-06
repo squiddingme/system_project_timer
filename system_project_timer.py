@@ -31,8 +31,9 @@ import time
 from bpy.app.handlers import persistent 
 
 class ProjectTimerReset(bpy.types.Operator):
-    bl_idname = "poject_timer.reset"
+    bl_idname = "project_timer.reset"
     bl_label = "Reset Project Timer"
+    bl_description = "Resets project timer to 0."
     bl_options = {'INTERNAL'}
 
     def execute(self, context):
@@ -42,11 +43,11 @@ class ProjectTimerReset(bpy.types.Operator):
 class ProjectTimerPreferences(bpy.types.AddonPreferences):
     # this must match the addon name, use '__package__'
     # when defining this in a submodule of a python package.
-    bl_idname = __name__
+    bl_idname = __package__
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("poject_timer.reset")
+        layout.operator("project_timer.reset")
         
             
 bpy.types.Scene.projectTime = bpy.props.IntProperty(
